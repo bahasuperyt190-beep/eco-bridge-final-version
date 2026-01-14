@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Маркетплейс отходов</title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+
+    <!-- QRCode -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Вход / регистрация -->
+    <div id="loginPanel" class="login-panel">
+      <h2>Вход / Регистрация</h2>
+      <input type="text" id="username" placeholder="Введите имя" />
+      <select id="role">
+        <option value="buyer">Покупатель</option>
+        <option value="seller">Продавец</option>
+      </select>
+      <button onclick="login()">Войти</button>  
+    </div>
+
+    <!-- Основной интерфейс -->
+    <div id="mainInterface" style="display: none">
+      <div class="container">
+        <!-- Левая панель -->
+        <div class="left-panel" id="sellerPanel">
+          <div id="welcome" style="text-align: center; font-weight: bold; margin-bottom: 15px"></div>
+
+          <h3>Создать лот</h3>
+          <input type="text" id="title" placeholder="Название отхода" /><br />
+          <input type="number" id="price" placeholder="Цена в тг за кг\литр" /><br />
+          <input type="number" id="amount" placeholder="Количество в кг\литр" /><br />
+          <select id="unit">
+            <option value="кг">кг</option>
+            <option value="литр">литр</option>
+          </select><br />   
+          <button id="openMapBtn">📍 Выбрать точку</button>
+
+          <div id="mapWrapper" style="display:none;">
+            <button id="closeMapBtn">✖ Закрыть</button>
+            <div id="map" style="height:400px;"></div>
+          </div>
+
+          <label for="lotImage">Фото лота:</label>
+          <input type="file" id="lotImage" accept="image/*" />
+
+          <input type="hidden" id="lat">
+          <input type="hidden" id="lng">
+          <button onclick="createLot()">Создать лот</button>
+          <button onclick="clearHistory()" class="clear-btn" style="margin-top: 10px">Очистить историю</button>
+          <button id="archiveBtn">
+            🗂 Архив покупок
+          </button>
+          
+          <!-- Модальное окно архива -->
+          <div id="archiveModal" class="modal">
+            <div class="modal-content">
+              <span id="closeArchive" class="close">&times;</span>
+              <h2>Архив купленных лотов</h2>
+              <div id="archiveContent"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Правая панель: список лотов -->
+        <div class="right-panel" id="lots"></div>
+      </div>
+    </div>
+    
+    <!-- Модальное окно карты -->
+    <div id="lotMapModal" style="
+      display:none;
+      position: fixed;
+      top: 50px;
+      right: 20px;
+      width: 500px;
+      height: 500px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      z-index: 9999;
+      overflow: hidden;
+    ">
+      <button id="closeLotMap" style="
+        position:absolute; top:10px; right:10px; z-index:10000;
+        background:#e74c3c; color:white; border:none; border-radius:50%;
+        width:30px; height:30px; cursor:pointer; font-weight:bold;">✖</button>
+      <div id="lotMap" style="width:100%; height:100%;"></div>
+    </div>
+
+    <!-- Подключаем основной JS -->
+    <script src="app.js"></script>
+  </body>
+</html>

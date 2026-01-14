@@ -1,0 +1,361 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+  }
+  
+  .header {
+    width: 100%;
+    padding: 15px 30px;
+    background: #2c3e50;
+    color: white;
+    display: flex;
+    justify-content: space-between; /* привет слева, кнопка справа */
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+  .header #welcome {
+    font-weight: bold;
+    font-size: 16px;
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  #sellerPanel #welcome {
+    font-size: 16px;
+    color: #2d3436;
+  }
+  .clear-btn {
+    background: #e67e22;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .clear-btn:hover {
+    background: #d35400;
+  }
+  
+  /* Контейнер с левой и правой колонками */
+  .container {
+    display: flex;
+    height: calc(100vh - 60px); /* Вычитаем высоту шапки */
+  }
+  
+  .map-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .map-box {
+    width: 80%;
+    height: 80%;
+    background: white;
+    border-radius: 12px;
+    position: relative;
+    padding: 10px;
+  }
+  
+  #map {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+  
+  .close-map {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  /* Левая панель: форма создания лота */
+  .left-panel {
+    width: 300px; /* ширина колонки */
+    background: #ecf0f1;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  
+  /* Правая панель: список лотов */
+  .right-panel {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Лоты */
+  .lot {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+  }
+  
+  /* Цвета по типу лота */
+  .lot.seller {
+    border-left: 5px solid #27ae60;
+  } /* зелёный - продаю */
+  .lot.buyer {
+    border-left: 5px solid #2980b9;
+  } /* синий - скупаем */
+  
+  /* Кнопки внутри лота */
+  .lot button {
+    padding: 5px 12px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .lot button:hover {
+    opacity: 0.8;
+  }
+  /* Форма входа / регистрации */
+  .login-panel {
+    width: 100%;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background: #ecf0f1;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .login-panel input,
+  .login-panel select {
+    width: 80%;
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #bdc3c7;
+  }
+  
+  .login-panel button {
+    padding: 8px 20px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .login-panel button:hover {
+    background: #219150;
+  }
+  .left-panel {
+    width: 300px;
+    background: linear-gradient(145deg, #ffffff, #dfe6e9);
+    padding: 30px 20px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .left-panel:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Заголовок */
+  .left-panel h3 {
+    text-align: center;
+    color: #2d3436;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  
+  /* Инпуты */
+  .left-panel input,
+  .left-panel select {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #b2bec3;
+    outline: none;
+    font-size: 14px;
+    transition: border 0.3s, box-shadow 0.3s;
+    cursor: text;
+  }
+  
+  .left-panel input:focus,
+  .left-panel select:focus {
+    border: 1px solid #0984e3;
+    box-shadow: 0 0 5px rgba(9, 132, 227, 0.4);
+  }
+  
+  /* Кнопка Создать */
+  .left-panel button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    background: #00b894;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+  }
+  #pickedCoords {
+    text-align: center;
+    padding: 8px;
+    font-size: mediums;
+    color: red;
+  }
+  .left-panel button:hover {
+    background: #019875;
+    transform: scale(1.05);
+  }
+  
+  /* Изменяем курсор на интерактивных элементах */
+  .left-panel input,
+  .left-panel select,
+  .left-panel button {
+    cursor: pointer;
+  }
+  .left-panel input,
+  .left-panel select {
+    cursor: text;
+  }
+  #archiveBtn {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: 2px solid #1e8449;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  #archiveBtn:hover {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+  }
+  
+  #archiveBtn:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  }
+  /* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0,0,0,0.6);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Контент модального окна */
+  .modal-content {
+    background-color: #f9f9f9;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 700px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    animation: fadeIn 0.4s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Кнопка закрытия */
+  .close {
+    color: #333;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover {
+    color: #e74c3c;
+  }
+  
+  /* Заголовок */
+  .modal-content h2 {
+    margin-top: 0;
+    text-align: center;
+    color: #27ae60;
+  }
+  
+  /* Контейнер лотов */
+  #archiveContent {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Карточка лота */
+  .archive-lot {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-left: 5px solid #27ae60;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  
+  .archive-lot img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+  }
+  
+  .archive-lot div {
+    flex: 1;
+  }
+  
