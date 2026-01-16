@@ -148,6 +148,10 @@ function loadLots() {
       buttons += ` <button style="background:#e74c3c" onclick="deleteLot(${index})">Удалить</button>`;
     }
 
+     if (lot.dealWith) {
+      dealInfo = `<br><b style="color:green">Сделка с: ${lot.dealWith}</b>`;
+    }
+
     div.innerHTML = `
       ${lot.image ? `<img src="${lot.image}" 
         style="width:100px;height:100px;object-fit:cover;margin-right:10px;float:left;border-radius:8px;">` : ""}
@@ -369,6 +373,7 @@ document.getElementById("archiveBtn").onclick = () => {
     });
   }
   
+
 
 
 
