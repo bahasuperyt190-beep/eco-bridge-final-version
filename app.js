@@ -7,7 +7,6 @@ let lotMapInstance = null;
 let lotMarker = null;
 let lotRoute = null;
 
-/* ---------- ВХОД / ВЫХОД ---------- */
 function login() {
   const username = document.getElementById("username").value.trim();
   const role = document.getElementById("role").value;
@@ -34,7 +33,6 @@ function logout() {
   document.getElementById("loginPanel").style.display = "block";
 }
 
-/* ---------- КАРТА ДЛЯ ВЫБОРА ТОЧКИ ---------- */
 document.getElementById('openMapBtn').onclick = () => {
   document.getElementById('mapWrapper').style.display = 'block';
 
@@ -65,7 +63,6 @@ document.getElementById('closeMapBtn').onclick = () => {
   pickMode = false;
 };
 
-/* ---------- СОЗДАНИЕ ЛОТА ---------- */
 function createLot() {
   const title = document.getElementById("title").value.trim();
   const price = +document.getElementById("price").value;
@@ -103,7 +100,7 @@ function createLot() {
     localStorage.setItem("lots", JSON.stringify(lots));
     loadLots();
 
-    // очищаем форму
+  
     document.getElementById("title").value = "";
     document.getElementById("price").value = "";
     document.getElementById("amount").value = "";
@@ -122,7 +119,7 @@ function createLot() {
     saveLot(null);
   }
 }
-// ---------- ОТОБРАЖЕНИЕ ЛОТОВ ----------
+
 function loadLots() {
     const lotsDiv = document.getElementById("lots");
     lotsDiv.innerHTML = "";
@@ -135,7 +132,6 @@ function loadLots() {
   
       let buttons = "";
   
-      // Запрещаем самому себе оплачивать
       if (lot.owner !== currentUser.username && !lot.dealWith && lot.amount >= 50 && !lot.paid) {
         buttons = `<button onclick="showPaymentQR(${index})">💳 Оплатить и увидеть карту</button>`;
       }
@@ -168,7 +164,7 @@ function loadLots() {
     });
   }
 
-/* ---------- УДАЛЕНИЕ ---------- */
+
 function deleteLot(index) {
   const lots = JSON.parse(localStorage.getItem("lots"));
   if (confirm("Удалить этот лот?")) {
@@ -185,7 +181,7 @@ function clearHistory() {
   }
 }
 
-/* ---------- МОДАЛЬНАЯ КАРТА ЛОТА ---------- */
+
 function showLotOnMap(index) {
   const lots = JSON.parse(localStorage.getItem("lots")) || [];
   const lot = lots[index];
@@ -222,7 +218,7 @@ function showLotOnMap(index) {
   }
 }
 
-// Закрытие модального окна карты
+
 document.addEventListener("DOMContentLoaded", () => {
   const closeBtn = document.getElementById("closeLotMap");
   const modal = document.getElementById("lotMapModal");
@@ -240,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-/* ---------- ОПЛАТА QR ---------- */
+
 function showPaymentQR(index) {
   const lots = JSON.parse(localStorage.getItem("lots"));
   const lot = lots[index];
@@ -252,7 +248,7 @@ function showPaymentQR(index) {
 
   const lotDiv = document.getElementById("lots").children[index];
 
-  // Контейнер для QR
+  
   let qrDiv = lotDiv.querySelector(".qr-code");
   if (!qrDiv) {
     qrDiv = document.createElement("div");
@@ -263,7 +259,6 @@ function showPaymentQR(index) {
     lotDiv.appendChild(qrDiv);
   }
 
-  // Кнопка подтверждения оплаты
   let confirmBtn = lotDiv.querySelector(".confirm-pay-btn");
   if (!confirmBtn) {
     confirmBtn = document.createElement("button");
@@ -286,16 +281,16 @@ function showPaymentQR(index) {
   });
 }
 
-/* ---------- ОПЛАТА И АРХИВ ---------- */
+
 function markLotPaid(index) {
   const lots = JSON.parse(localStorage.getItem("lots"));
   const lot = lots[index];
 
   lot.paid = true;
-  lot.dealWith = currentUser.username; // кто оплатил
+  lot.dealWith = currentUser.username; 
   localStorage.setItem("lots", JSON.stringify(lots));
 
-  // Сохраняем в архив покупок пользователя
+ 
   const archiveKey = `purchased_${currentUser.username}`;
   const archive = JSON.parse(localStorage.getItem(archiveKey)) || [];
   archive.push(lot);
@@ -304,7 +299,7 @@ function markLotPaid(index) {
   loadLots();
 }
 
-// Показать архив покупок
+
 function showPurchasedArchive() {
   const archiveKey = `purchased_${currentUser.username}`;
   const archive = JSON.parse(localStorage.getItem(archiveKey)) || [];
@@ -329,13 +324,13 @@ function showPurchasedArchive() {
   archiveDiv.innerHTML = html;
   document.body.appendChild(archiveDiv);
 }
-// Показать архив
+
 document.getElementById("archiveBtn").onclick = () => {
     showPurchasedArchive();
     document.getElementById("archiveModal").style.display = "block";
   };
   
-  // Закрыть архив
+
   document.getElementById("closeArchive").onclick = () => {
     document.getElementById("archiveModal").style.display = "none";
   };
@@ -370,3 +365,4 @@ document.getElementById("archiveBtn").onclick = () => {
     });
   }
   
+
