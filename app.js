@@ -121,48 +121,57 @@ function createLot() {
 }
 
 function loadLots() {
-    const lotsDiv = document.getElementById("lots");
-    lotsDiv.innerHTML = "";
-  
-    const lots = JSON.parse(localStorage.getItem("lots")) || [];
-  
-    lots.forEach((lot, index) => {
-      const div = document.createElement("div");
-      div.className = `lot ${lot.type === "sell" ? "seller" : "buyer"}`;
-  
-      let buttons = "";
-  
-      if (lot.owner !== currentUser.username && !lot.dealWith && lot.amount >= 50 && !lot.paid) {
-        buttons = `<button onclick="showPaymentQR(${index})">💳 Оплатить и увидеть карту</button>`;
-      }
-  
-      if (lot.paid && lot.dealWith === currentUser.username) {
-        buttons = `<button onclick="showLotOnMap(${index})">🗺 Показать на карте</button>`;
-      }
-  
-      if (lot.amount < 50) {
-        buttons = `<span style="color:red">Мин. 50 ${lot.unit}</span>`;
-      }
-  
-      if (lot.owner === currentUser.username) {
-        buttons += ` <button style="background:#e74c3c" onclick="deleteLot(${index})">Удалить</button>`;
-      }
-  
-      div.innerHTML = `
-        ${lot.image ? `<img src="${lot.image}" 
-          style="width:100px;height:100px;object-fit:cover;margin-right:10px;float:left;border-radius:8px;">` : ""}
-        <b>${lot.title}</b><br>
-        <i>${lot.type === "sell" ? "Продаю" : "Скупаем"}</i><br>
-        Цена: ${lot.price} тг / ${lot.unit}<br>
-        Количество: ${lot.amount} ${lot.unit}<br>
-        Создал: ${lot.owner}<br>
-        ${buttons}
-        <div style="clear:both;"></div>
-      `;
-  
-      lotsDiv.appendChild(div);
-    });
-  }
+  const lotsDiv = document.getElementById("lots");
+  lotsDiv.innerHTML = "";
+
+  const lots = JSON.parse(localStorage.getItem("lots")) || [];
+
+  lots.forEach((lot, index) => {
+    const div = document.createElement("div");
+    div.className = `lot ${lot.type === "sell" ? "seller" : "buyer"}`;
+
+    let buttons = "";
+    let dealInfo = ""; // ← НОВОЕ
+
+    if (lot.owner !== currentUser.username && !lot.dealWith && lot.amount >= 50 && !lot.paid) {
+      buttons = `<button onclick="showPaymentQR(${index})">💳 Оплатить и увидеть карту</button>`;
+    }
+
+    if (lot.paid && lot.dealWith === currentUser.username) {
+      buttons = `<button onclick="showLotOnMap(${index})">🗺 Показать на карте</button>`;
+    }
+
+    if (lot.amount < 50) {
+      buttons = `<span style="color:red">Мин. 50 ${lot.unit}</span>`;
+    }
+
+    if (lot.owner === currentUser.username) {
+      buttons += ` <button style="background:#e74c3c" onclick="deleteLot(${index})">Удалить</button>`;
+    }
+
+    // ===== СТАТУС СДЕЛКИ =====
+    if (lot.dealWith) {
+      dealInfo = `<br><b style="color:green">Сделка с: ${lot.dealWith}</b>`;
+    }
+
+    div.innerHTML = `
+      ${lot.image ? `<img src="${lot.image}" 
+        style="width:100px;height:100px;object-fit:cover;margin-right:10px;float:left;border-radius:8px;">` : ""}
+      <b>${lot.title}</b><br>
+      <i>${lot.type === "sell" ? "Продаю" : "Скупаем"}</i><br>
+      Цена: ${lot.price} тг / ${lot.unit}<br>
+      Количество: ${lot.amount} ${lot.unit}<br>
+      Создал: ${lot.owner}
+      ${dealInfo}
+      <br>
+      ${buttons}
+      <div style="clear:both;"></div>
+    `;
+
+    lotsDiv.appendChild(div);
+  });
+}
+
 
 
 function deleteLot(index) {
@@ -365,4 +374,5 @@ document.getElementById("archiveBtn").onclick = () => {
     });
   }
   
+
 
