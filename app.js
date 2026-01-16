@@ -131,7 +131,7 @@ function loadLots() {
     div.className = `lot ${lot.type === "sell" ? "seller" : "buyer"}`;
 
     let buttons = "";
-    let dealInfo = ""; // ← НОВОЕ
+    let dealInfo = "";
 
     if (lot.owner !== currentUser.username && !lot.dealWith && lot.amount >= 50 && !lot.paid) {
       buttons = `<button onclick="showPaymentQR(${index})">💳 Оплатить и увидеть карту</button>`;
@@ -162,6 +162,7 @@ function loadLots() {
       Цена: ${lot.price} тг / ${lot.unit}<br>
       Количество: ${lot.amount} ${lot.unit}<br>
       Создал: ${lot.owner}
+      ${lot.buyer ? "Сделка с: " + lot.buyer : buttons}
       ${dealInfo}
       <br>
       ${buttons}
