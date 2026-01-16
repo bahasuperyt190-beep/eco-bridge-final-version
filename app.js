@@ -131,6 +131,7 @@ function loadLots() {
     div.className = `lot ${lot.type === "sell" ? "seller" : "buyer"}`;
 
     let buttons = "";
+    let dealInfo = ""; // ← НОВОЕ
 
     if (lot.owner !== currentUser.username && !lot.dealWith && lot.amount >= 50 && !lot.paid) {
       buttons = `<button onclick="showPaymentQR(${index})">💳 Оплатить и увидеть карту</button>`;
@@ -148,7 +149,8 @@ function loadLots() {
       buttons += ` <button style="background:#e74c3c" onclick="deleteLot(${index})">Удалить</button>`;
     }
 
-     if (lot.dealWith) {
+    // ===== СТАТУС СДЕЛКИ =====
+    if (lot.dealWith) {
       dealInfo = `<br><b style="color:green">Сделка с: ${lot.dealWith}</b>`;
     }
 
@@ -170,7 +172,6 @@ function loadLots() {
     lotsDiv.appendChild(div);
   });
 }
-
 
 
 function deleteLot(index) {
@@ -373,6 +374,7 @@ document.getElementById("archiveBtn").onclick = () => {
     });
   }
   
+
 
 
 
