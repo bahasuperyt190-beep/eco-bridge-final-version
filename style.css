@@ -10,7 +10,7 @@ body {
     background: #2c3e50;
     color: white;
     display: flex;
-    justify-content: space-between; /* привет слева, кнопка справа */
+    justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
   }
@@ -42,10 +42,10 @@ body {
     background: #d35400;
   }
   
-  /* Контейнер с левой и правой колонками */
+ 
   .container {
     display: flex;
-    height: calc(100vh - 60px); /* Вычитаем высоту шапки */
+    height: calc(100vh - 60px); 
   }
   
   .map-modal {
@@ -90,16 +90,15 @@ body {
     font-size: 16px;
   }
   
-  /* Левая панель: форма создания лота */
   .left-panel {
-    width: 300px; /* ширина колонки */
+    width: 300px; 
     background: #ecf0f1;
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
   }
   
-  /* Правая панель: список лотов */
+
   .right-panel {
     flex: 1;
     padding: 20px;
@@ -110,7 +109,7 @@ body {
     gap: 10px;
   }
   
-  /* Лоты */
+
   .lot {
     background: white;
     padding: 15px;
@@ -119,15 +118,14 @@ body {
     transition: 0.3s;
   }
   
-  /* Цвета по типу лота */
+ 
   .lot.seller {
     border-left: 5px solid #27ae60;
-  } /* зелёный - продаю */
+  } 
   .lot.buyer {
     border-left: 5px solid #2980b9;
-  } /* синий - скупаем */
-  
-  /* Кнопки внутри лота */
+  } 
+
   .lot button {
     padding: 5px 12px;
     margin-top: 5px;
@@ -141,7 +139,7 @@ body {
   .lot button:hover {
     opacity: 0.8;
   }
-  /* Форма входа / регистрации */
+
   .login-panel {
     width: 100%;
     max-width: 400px;
@@ -194,7 +192,7 @@ body {
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
   }
   
-  /* Заголовок */
+  
   .left-panel h3 {
     text-align: center;
     color: #2d3436;
@@ -202,7 +200,6 @@ body {
     margin-bottom: 15px;
   }
   
-  /* Инпуты */
   .left-panel input,
   .left-panel select {
     padding: 10px 12px;
@@ -220,7 +217,6 @@ body {
     box-shadow: 0 0 5px rgba(9, 132, 227, 0.4);
   }
   
-  /* Кнопка Создать */
   .left-panel button {
     padding: 10px 15px;
     border: none;
@@ -243,7 +239,6 @@ body {
     transform: scale(1.05);
   }
   
-  /* Изменяем курсор на интерактивных элементах */
   .left-panel input,
   .left-panel select,
   .left-panel button {
@@ -277,7 +272,7 @@ body {
     transform: translateY(1px);
     box-shadow: 0 3px 6px rgba(0,0,0,0.2);
   }
-  /* Модальное окно */
+
 .modal {
     display: none;
     position: fixed;
@@ -291,7 +286,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   
-  /* Контент модального окна */
+
   .modal-content {
     background-color: #f9f9f9;
     margin: 50px auto;
@@ -308,7 +303,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
   }
   
-  /* Кнопка закрытия */
+
   .close {
     color: #333;
     float: right;
@@ -320,15 +315,13 @@ body {
   .close:hover {
     color: #e74c3c;
   }
-  
-  /* Заголовок */
+
   .modal-content h2 {
     margin-top: 0;
     text-align: center;
     color: #27ae60;
   }
   
-  /* Контейнер лотов */
   #archiveContent {
     margin-top: 20px;
     display: flex;
@@ -336,7 +329,6 @@ body {
     gap: 15px;
   }
   
-  /* Карточка лота */
   .archive-lot {
     display: flex;
     align-items: center;
@@ -358,4 +350,5 @@ body {
   .archive-lot div {
     flex: 1;
   }
+
   
