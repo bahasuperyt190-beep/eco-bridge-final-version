@@ -141,9 +141,7 @@ function loadLots() {
       buttons = `<button onclick="showLotOnMap(${index})">🗺 Показать на карте</button>`;
     }
 
-    if (lot.amount < 50) {
-      buttons = `<span style="color:red">Мин. 50 ${lot.unit}</span>`;
-    }
+    
 
     if (lot.owner === currentUser.username) {
       buttons += ` <button style="background:#e74c3c" onclick="deleteLot(${index})">Удалить</button>`;
@@ -374,6 +372,7 @@ document.getElementById("archiveBtn").onclick = () => {
     });
   }
   
+
 
 
 
