@@ -160,7 +160,6 @@ function loadLots() {
       Цена: ${lot.price} тг / ${lot.unit}<br>
       Количество: ${lot.amount} ${lot.unit}<br>
       Создал: ${lot.owner}
-      ${lot.buyer ? "Сделка с: " + lot.buyer : buttons}
       ${dealInfo}
       <br>
       ${buttons}
@@ -372,6 +371,7 @@ document.getElementById("archiveBtn").onclick = () => {
     });
   }
   
+
 
 
 
